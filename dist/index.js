@@ -72,7 +72,7 @@ function importArgs(matches, config) {
 }
 function load() {
     const { pattern, config, cback } = getParams(...arguments);
-    var matches = glob_1.default.sync(pattern);
+    const matches = glob_1.default.sync(pattern);
     // validate config
     validateConfig(config);
     const importedModuleList = importArgs(matches, config);
