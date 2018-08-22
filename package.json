@@ -1,12 +1,17 @@
 {
   "name": "dynamolo",
   "version": "1.0.1",
-  "description": "",
-  "main": "index.js",
+  "description": "DYNAmic MOdule LOader",
+  "main": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "repository": "github:Sciulio/dynamolo",
+  "directories": {
+    "test": "test"
+  },
   "scripts": {
     "test": "node ./node_modules/mocha/bin/mocha tests/"
   },
-  "author": "sciulio@msn.com",
+  "author": "Sciulio <sciulio@msn.com>",
   "license": "ISC",
   "dependencies": {
     "glob": "^7.1.2"
