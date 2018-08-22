@@ -6,12 +6,12 @@ import glob from "glob";
 export type tLogger = (...args: any[]) => void;
 
 export type tArgsConfig = {
-  rootPath: string;
-  exportDefault: boolean;
+  rootPath?: string;
+  exportDefault?: boolean;
   exporter?: <T>(module: any) => T;
-  catchSingleExports: boolean;
-  logInfo: tLogger;
-  logError: tLogger;
+  catchSingleExports?: boolean;
+  logInfo?: tLogger;
+  logError?: tLogger;
 };
 
 function getParams<T>(...args: any[]) {
@@ -47,7 +47,7 @@ function validateConfig(config: tArgsConfig) {
   return config;
 }
 
-function importModule<T>(absFilePath: string, exporter: (arg: any) => T, logInfo: tLogger|null) {
+function importModule<T>(absFilePath: string, exporter: (arg: any) => T, logInfo: tLogger|undefined) {
   logInfo && logInfo(" - Importing module: ", absFilePath);
 
   const importedModule = require(absFilePath);
@@ -57,7 +57,7 @@ function importArgs<T>(matches: string[], config: tArgsConfig) {
   const exporter = config.exportDefault ? config.exporter = arg => arg.default : config.exporter || (arg => arg);
 
   const absFilePathList = matches
-  .map(relFilePath => path.join(config.rootPath, relFilePath))
+  .map(relFilePath => path.join(config.rootPath as string, relFilePath))
   .filter(absFilePath => fs.statSync(absFilePath).isFile());
 
   if (config.catchSingleExports) {
@@ -87,8 +87,7 @@ export function load<T>() {
     config,
     cback
   } = getParams(...arguments);
-
-  var matches = glob.sync(pattern);
+  const matches = glob.sync(pattern);
 
   // validate config
   validateConfig(config);
