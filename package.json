@@ -1,0 +1,19 @@
+{
+  "name": "dynamolo",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "node ./node_modules/mocha/bin/mocha tests/"
+  },
+  "author": "sciulio@msn.com",
+  "license": "ISC",
+  "dependencies": {
+    "glob": "^7.1.2"
+  },
+  "devDependencies": {
+    "@types/glob": "^5.0.35",
+    "chai": "^4.1.2",
+    "mocha": "^5.2.0"
+  }
+}
