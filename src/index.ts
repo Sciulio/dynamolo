@@ -53,7 +53,7 @@ function importModule<T>(absFilePath: string, exporter: (arg: any) => T, logInfo
   const importedModule = require(absFilePath);
   return exporter(importedModule);
 }
-function importArgs<T>(matches: string[], config: tArgsConfig) {
+function importArgs<T>(matches: string[], config: tArgsConfig): T[] {
   const exporter = config.exportDefault ? config.exporter = arg => arg.default : config.exporter || (arg => arg);
 
   const absFilePathList = matches
@@ -79,7 +79,7 @@ function importArgs<T>(matches: string[], config: tArgsConfig) {
   });
 }
 
-export function load<T>(pattern: string, config?: tArgsConfig): any[];
+export function load<T>(pattern: string, config?: tArgsConfig): T[];
 export function load<T>(pattern: string, cback?: (def: T) => void, config?: tArgsConfig): void;
 export function load<T>() {
   const {
@@ -101,20 +101,21 @@ export function load<T>() {
   }
 }
 
-export async function loadAsync<T>(pattern: string, _config?: tArgsConfig) {
+export async function loadAsync<T>(pattern: string, _config?: tArgsConfig): Promise<T[]> {
   const config: tArgsConfig = _config || {} as any;
 
   // validate config
   validateConfig(config);
 
-  return new Promise((res, rej) => {
+  return new Promise<T[]>((res, rej) => {
     glob(pattern, (err, matches) => {
       if (err) {
         rej(err);
-        return;
+        return null;
       }
       
-      res(importArgs<T>(matches, config));
+      const importedModuleList = importArgs<T>(matches, config);
+      res(importedModuleList);
     })
   });
 }
