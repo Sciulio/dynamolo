@@ -93,9 +93,10 @@ function loadAsync(pattern, _config) {
             glob_1.default(pattern, (err, matches) => {
                 if (err) {
                     rej(err);
-                    return;
+                    return null;
                 }
-                res(importArgs(matches, config));
+                const importedModuleList = importArgs(matches, config);
+                res(importedModuleList);
             });
         });
     });

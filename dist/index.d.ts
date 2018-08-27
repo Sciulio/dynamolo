@@ -7,6 +7,6 @@ export declare type tArgsConfig = {
     logInfo?: tLogger;
     logError?: tLogger;
 };
-export declare function load<T>(pattern: string, config?: tArgsConfig): any[];
+export declare function load<T>(pattern: string, config?: tArgsConfig): T[];
 export declare function load<T>(pattern: string, cback?: (def: T) => void, config?: tArgsConfig): void;
-export declare function loadAsync<T>(pattern: string, _config?: tArgsConfig): Promise<{}>;
+export declare function loadAsync<T>(pattern: string, _config?: tArgsConfig): Promise<T[]>;
